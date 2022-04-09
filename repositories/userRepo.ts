@@ -1,37 +1,32 @@
 import client from "../db/database.ts";
 import UserInterface from "../abstractions/interfaces/user.interface.ts"
 
-private class UserRepo {
+class UserRepo {
     create(user: UserInterface) {
-        return client.queryObject(
-            "INSERT INTO users (firstName, lastName) VALUES ($1, $2)",
-            user.firstName,
-            user.lastName
+        return client?.queryObject(
+            `INSERT INTO users (firstName, lastName) VALUES (${user.firstName}, ${user.lastName})`
         );
     }
 
     selectAll() {
-        return client.queryArray("SELECT * FROM users ORDER BY id");
+        return client?.queryArray("SELECT * FROM users ORDER BY id");
     }
 
-    selectById(id: number) {
-        return client.queryObject(`SELECT * FROM users WHERE id = $1`, id);
+    selectById(id: number): Promise<any> | undefined {
+        return client?.queryObject(`SELECT * FROM users WHERE id = ${id}`);
     }
 
-    update(id: number, user: UserInterface) {
-        const latestUser: UserInterface = this.selectById(id);
-        const query = `UPDATE users SET firstName = $1, lastName = $2 WHERE id = $3`;
+     async update(id: number, user: UserInterface) {
+        const latestUser: UserInterface = await this.selectById(id);
+        const query = `UPDATE users SET firstName = ${user.firstName !== undefined ? user.firstName : latestUser.firstName}, lastName = ${user.lastName !== undefined ? user.lastName : latestUser.lastName} WHERE id = ${id}`;
 
-        return client.queryObject(
-            query,
-            user.firstName !== undefined ? user.firstName : latestUser.firstName,
-            user.lastName !== undefined ? user.lastName : latestUser.lastName,
-            id
+        return client?.queryObject(
+            query
         );
     }
 
     delete(id: number) {
-        return client.queryObject(`DELETE FROM users WHERE id = $1`, id);
+        return client?.queryObject(`DELETE FROM users WHERE id = ${id}`);
     }
 }
 

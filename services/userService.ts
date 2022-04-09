@@ -4,12 +4,13 @@ import UserInterface from "../abstractions/interfaces/user.interface.ts"
 export const getUsers = async () => {
     const users = await userRepo.selectAll();
 
-    const result = [];
+    const result: Array<any> = [];
+    if (!users) return;
 
-    users.rows.map((user: UserInterface) => {
-        const obj = {};
+    users.rows.map((user: any) => {
+        const obj: any = {};
 
-        users.rowDescription.columns.map((el: UserInterface, i) => {
+        users?.rowDescription?.columns?.map((el: any, i: number) => {
             obj[el.firstName] = user[i];
         });
 
@@ -19,18 +20,18 @@ export const getUsers = async () => {
     return result;
 };
 
-export const getUser = async (userId: number) => {
+export const getUser = async (userId: number): Promise<UserInterface> => {
     const users = await userRepo.selectById(userId);
 
-    let result = {};
-    users.rows.map((user) => {
+    let result: UserInterface = {firstName: "", lastName: ""};
+    users.rows.map((user: UserInterface) => {
         result = user;
     });
 
     return result;
 };
 
-export const createUser = async (userData) => {
+export const createUser = async (userData: UserInterface) => {
     const newUser: UserInterface = {
         firstName: String(userData.firstName),
         lastName: String(userData.lastName)
@@ -41,8 +42,8 @@ export const createUser = async (userData) => {
     return newUser.id;
 };
 
-export const updateUser = async (userId, userData) => {
-    const user = await getUser(userId);
+export const updateUser = async (userId: number, userData: UserInterface) => {
+    const user: UserInterface = await getUser(userId);
 
     if (Object.keys(user).length === 0 && user.constructor === Object) {
         throw new Error("User not found");
@@ -56,6 +57,6 @@ export const updateUser = async (userId, userData) => {
     userRepo.update(userId, updatedUser);
 };
 
-export const deleteUser = async (userId) => {
+export const deleteUser = async (userId: number) => {
     userRepo.delete(userId);
 };

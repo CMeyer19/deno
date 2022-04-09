@@ -1,3 +1,5 @@
-export default function getUsers() {
+import {getUsers} from "../services/userService.ts";
 
-}
+export default async ({response}) => {
+    response.body = await getUsers();
+};
