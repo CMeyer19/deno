@@ -1,7 +1,13 @@
 import {deleteUser, getUser} from "../services/userService.ts";
+import {Context} from "../deps.ts";
+import {IdentifierType} from "../abstractions/types/identifier.type.ts";
 
-export default async ({params, response}: { params: any, response: any }) => {
-    const userId = params.id;
+interface ContextWithParams extends Context {
+    params: { id: string; };
+}
+
+export default async ({params, response}: ContextWithParams) => {
+    const userId: IdentifierType = params.id;
 
     if (!userId) {
         response.status = 400;

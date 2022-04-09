@@ -19,7 +19,7 @@ export default async ({request, response}: { request: any; response: any }) => {
         return;
     }
 
-    const beerId = await createUser({firstName, lastName});
+    const userId = await createUser({firstName, lastName});
 
-    response.body = {msg: "Beer created", beerId};
+    response.body = {msg: "User created", userId};
 };

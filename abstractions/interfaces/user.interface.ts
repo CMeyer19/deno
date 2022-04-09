@@ -1,5 +1,7 @@
+import {IdentifierType} from "../types/identifier.type.ts";
+
 export default interface UserInterface {
-    id?: number;
+    id?: IdentifierType;
     firstName: string;
     lastName: string;
 }
