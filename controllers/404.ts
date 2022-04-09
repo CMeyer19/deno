@@ -1,4 +1,4 @@
-export default ({ response }) => {
+export default ({response}: { response: any }) => {
     response.status = 404;
-    response.body = { msg: "Not Found" };
+    response.body = {msg: "Not Found"};
 };
