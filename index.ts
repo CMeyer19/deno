@@ -1,6 +1,6 @@
-import { Application } from "https://deno.land/x/oak/mod.ts";
-import { APP_HOST, APP_PORT } from "./config.ts";
-import router from "./routes.ts";
+import {Application} from "./deps.ts";
+import {APP_HOST, APP_PORT} from "./config.ts";
+import router from './routes/routes.ts';
 import _404 from "./controllers/404.ts";
 import errorHandler from "./controllers/errorHandler.ts";
 
