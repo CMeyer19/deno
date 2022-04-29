@@ -5,13 +5,13 @@ import updateUser from "../controllers/updateUser.ts";
 import deleteUser from "../controllers/deleteUser.ts";
 import {Router} from "../deps.ts";
 
-const peopleRouter = new Router();
+const userRoutes = new Router();
 
-peopleRouter
+userRoutes
     .get("/", getUsers)
     .post("/", createUser)
     .get("/:id", getUser)
     .put("/:id", updateUser)
     .delete("/:id", deleteUser);
 
-export default peopleRouter;
+export default userRoutes;

@@ -1,8 +1,8 @@
 import {Router} from "../deps.ts";
-import peopleRouter from './userRoutes.ts';
+import userRoutes from './userRoutes.ts';
 
 const router = new Router();
 
-router.get("/users", peopleRouter.routes(), peopleRouter.allowedMethods());
+router.get("/users", userRoutes.routes(), userRoutes.allowedMethods());
 
 export default router;
